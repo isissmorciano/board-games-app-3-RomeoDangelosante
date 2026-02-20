@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{{ url_for('index') }}" class="btn btn-outline-secondary mb-3">&larr; Torna alla lista</a>
+    <h1>{{ gioco['nome'] }} <span class="badge bg-secondary fs-6">{{ gioco['categoria'] }}</span></h1>
+    <p class="text-muted">Max {{ gioco['numero_giocatori_massimo'] }} giocatori | Durata: {{ gioco['durata_media'] }} min</p>
+</div>
+
+<div class="row">
+    <!-- Colonna Lista Partite -->
+    <div class="col-md-8">
+        <h3>Storico Partite</h3>
+        {% if partite %}
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Data</th>
+                    <th>Vincitore</th>
+                    <th>Punteggio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partita in partite %}
+                <tr>
+                    <td>{{ partita['data'] }}</td>
+                    <td>{{ partita['vincitore'] }}</td>
+                    <td>{{ partita['punteggio_vincitore'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-info">Nessuna partita registrata per questo gioco.</div>
+        {% endif %}
+    </div>
+
+    <!-- Colonna Form Nuova Partita -->
+    <div class="col-md-4">
+        <div class="card bg-light">
+            <div class="card-header fw-bold">Registra Nuova Partita</div>
+            <div class="card-body">
+                <form action="{{ url_for('aggiungi_partita', gioco_id=gioco['id']) }}" method="post">
+                    <div class="mb-3">
+                        <label for="data" class="form-label">Data</label>
+                        <input type="date" class="form-control" id="data" name="data" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vincitore" class="form-label">Nome Vincitore</label>
+                        <input type="text" class="form-control" id="vincitore" name="vincitore" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="punteggio_vincitore" class="form-label">Punteggio</label>
+                        <input type="number" class="form-control" id="punteggio_vincitore" name="punteggio_vincitore" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Aggiungi Partita</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

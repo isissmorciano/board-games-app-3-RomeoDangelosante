@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Lista Giochi da Tavolo</h1>
+    <a href="{{ url_for('nuovo_gioco') }}" class="btn btn-success">Aggiungi Gioco</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Max Giocatori</th>
+            <th>Durata (min)</th>
+            <th>Categoria</th>
+            <th>Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gioco in giochi %}
+        <tr>
+            <td><strong>{{ gioco['nome'] }}</strong></td>
+            <td>{{ gioco['numero_giocatori_massimo'] }}</td>
+            <td>{{ gioco['durata_media'] }}</td>
+            <td>{{ gioco['categoria'] }}</td>
+            <td>
+                <a href="{{ url_for('dettaglio_gioco', gioco_id=gioco['id']) }}" class="btn btn-sm btn-primary">
+                    Vedi Partite
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

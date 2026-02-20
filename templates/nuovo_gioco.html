@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Registra Nuovo Gioco</h2>
+<div class="card p-4 mt-3">
+    <form method="post">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome Gioco</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="mb-3">
+            <label for="numero_giocatori_massimo" class="form-label">Numero Max Giocatori</label>
+            <input type="number" class="form-control" id="numero_giocatori_massimo" name="numero_giocatori_massimo" required>
+        </div>
+        <div class="mb-3">
+            <label for="durata_media" class="form-label">Durata Media (minuti)</label>
+            <input type="number" class="form-control" id="durata_media" name="durata_media" required>
+        </div>
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <select class="form-select" id="categoria" name="categoria">
+                <option value="Strategia">Strategia</option>
+                <option value="Party">Party</option>
+                <option value="Family">Family</option>
+                <option value="Cooperativo">Cooperativo</option>
+                <option value="Wargame">Wargame</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Salva Gioco</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Annulla</a>
+    </form>
+</div>
+{% endblock %}
